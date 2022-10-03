@@ -2,16 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const NotModel = require("../models/notModel");
-const { notOlustur } = require("../controllers/notController");
+const { notOlustur, notlarGetir, notGetir} = require("../controllers/notController");
 
-router.get("/", (req, res) => {
-  res.json({ msg: "Notlar sayfası" });
-});
+router.get("/", notlarGetir)
 //Listeleme
-router.get("/:id", (req, res) => {
-  res.json({ msg: "${req.params.id}´ id li not" });
-});
+router.get('/:id', notGetir)
 //Ekle
 router.post('/', notOlustur)
 

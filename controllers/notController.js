@@ -1,5 +1,5 @@
 const NotModel = require("../models/notModel");
-
+const mongoose=require('mongoose')
 const notOlustur= async (req,res)=>{
 
     const {baslik,aciklama}=req.body;
@@ -12,6 +12,24 @@ const notOlustur= async (req,res)=>{
     }
 }
 
+const notlarGetir=async (req,res)=>{
+    const notlar= await NotModel.find().sort({createdAt:-1});
+        res.status(200).json(notlar)
+}
+
+const notGetir=async (req,res)=>{
+    const {id}=req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({hata:"Geçersiz id"})
+    }
+    const not= await NotModel.findById(id);
+    if(!not){
+        return res.status(404).json({hata: 'not bulunamadı'})
+
+    }
+    res.status(200).json(not)
+}
+
 module.exports={
-    notOlustur
+    notOlustur,notlarGetir,notGetir
 }
