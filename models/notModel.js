@@ -5,7 +5,7 @@ const Sema=mongoose.Schema
 
 
 const notSema=Sema({
-    baslık: {
+    baslik: {
         type: String,
         required: true
     },
@@ -16,3 +16,5 @@ const notSema=Sema({
 }, {
     timestamps:true
 })
+
+module.exports=mongoose.model("Not", notSema)
