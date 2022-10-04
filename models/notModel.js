@@ -7,7 +7,7 @@ const Sema=mongoose.Schema
 const notSema=Sema({
     baslik: {
         type: String,
-        required: true
+        required:[ true, 'Lütfen bir başlık giriniz']
     },
 
     aciklama:{
