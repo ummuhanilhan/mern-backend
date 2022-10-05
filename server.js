@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const notRoute = require("./routes/notlar");
+const kullaniciRoute = require("./routes/kullanici");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -24,4 +25,5 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(err);
   });
 
-app.use("/api/notlar", notRoute);
+app.use("/api/notlar", notRoute)
+app.use("/api/kullanici", kullaniciRoute)
