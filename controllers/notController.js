@@ -5,6 +5,19 @@ const notOlustur= async (req,res)=>{
 
     const {baslik,aciklama}=req.body;
 
+    let bosAlanlar=[]
+        if(!baslik){
+            bosAlanlar.push("baslik")
+        }
+        if(!aciklama){
+            bosAlanlar.push("aciklama")
+        }
+        if(bosAlanlar.length>0){
+            return res.status(400).json({
+                hata:`Alanlar boş geçilemez`,bosAlanlar
+            })
+        }
+
     try {
         const not=await NotModel.create({baslik,aciklama});
         res.status(200).json({not})
