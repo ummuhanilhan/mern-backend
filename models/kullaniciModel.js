@@ -1,23 +1,23 @@
 const mongoose=require("mongoose");
-const Schema=mongoose.Schema;
-const bcrypt=require('bcrypt')
+const Sema =mongoose.Schema
+const bcrypt=require("bcrypt")
 
 const kullaniciSema=new Sema({
     email:{
-        type:string,
+        type:String,
         required:true,
         unique:true
     },
     parola:{
-        type:string,
+        type:String,
         required:true
     }
 })
 
 kullaniciSema.statics.signup=async function(email,parola){
-    const kontrolKullanici=await this.findOne({email}) // kullanıcının var olup olmadığını kontrol ediyoruz
+    const kontrolKullanici=await this.findOne({email})
     if(kontrolKullanici){
-        throw new Error('Bu email ile kayıtlı kullanıcı var')
+        throw Error('Bu email ile kayıtlı kullanıcı var')
     }
     const salt=await bcrypt.genSalt(10)
 
