@@ -11,7 +11,7 @@ const signupKullanici = async (req,res)=>{
    const {email,parola}=req.body;
     try {
         const kullanici=await kullanici.signup(email,parola)
-        res.status(200).json({kullanici})
+        res.status(200).json({email,kullanici})
     } catch (error) {
         res.status(400).json({hata:error.message})
     }
