@@ -3,12 +3,18 @@ const jwt=require('jsonwebtoken')
 
 const tokenOlustur=(_id)=>{
     return jwt.sign({_id},process.env.SECRET_KEY, {expressIn:'1h'})
-
 }
 
 const loginKullanici= async (req,res)=>{
-    res.json({mesaj: 'login işlemi gerçekleşti'})
-
+  //  res.json({mesaj: 'login işlemi gerçekleşti'})
+  const {email,parola}=req.body;
+    try {
+        const kullanici=await kullanici.login(email,parola)
+        const token=tokenOlustur(kullanici._id);
+        res.status(200).json({email,token})
+} catch (error) {
+    res.status(400).json({error:error.message})
+}
 }
 
 const signupKullanici = async (req,res)=>{

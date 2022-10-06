@@ -1,6 +1,8 @@
 const mongoose=require("mongoose");
-const Sema =mongoose.Schema
 const bcrypt=require("bcrypt")
+const validator=require("validator")
+const Sema =mongoose.Schema
+
 
 const kullaniciSema=new Sema({
     email:{
@@ -15,9 +17,22 @@ const kullaniciSema=new Sema({
 })
 
 kullaniciSema.statics.signup=async function(email,parola){
+
+    if(!email || !parola){
+        throw new Error('Lütfen email ve parola giriniz')
+    }
+    if(!validator.isEmail(email)){
+        throw new Error('Lütfen geçerli bir email giriniz')
+    }
+    if(!validator.isStrongPassword(parola)){
+        throw new Error('Lütfen geçerli bir parola giriniz')
+    }
+
+
+
     const kontrolKullanici=await this.findOne({email})
     if(kontrolKullanici){
-        throw Error('Bu email ile kayıtlı kullanıcı var')
+        throw new Error('Bu email ile kayıtlı kullanıcı var')
     }
     const salt=await bcrypt.genSalt(10)
 
@@ -30,4 +45,20 @@ kullaniciSema.statics.signup=async function(email,parola){
     return kullanici
 }
 
-module.exports=mongoose.model('Kullanıcı',kullaniciSema)
+kullaniciSema.statics.login=async function(email,parola){
+    if(!email || !parola){
+        throw new Error('Lütfen email ve parola giriniz')
+    }
+    const kullanici=await this.findOne({email})
+    if(!kullanici){
+        throw new Error('Bu email ile kayıtlı kullanıcı yok')
+    }
+    const kontrolKullanici=await bcrypt.compare(parola,kullanici.parola)
+    if(!parolaKontrol){
+        throw new Error('Parola yanlış')
+    }
+    return kullanici
+}
+
+
+module.exports=mongoose.model('Kullanici',kullaniciSema)
