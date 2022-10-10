@@ -32,7 +32,7 @@ kullaniciSema.statics.signup=async function(email,parola){
 
     const kontrolKullanici=await this.findOne({email})
     if(kontrolKullanici){
-        throw new Error('Bu email ile kayıtlı kullanıcı var')
+        throw  Error('Bu email ile kayıtlı kullanıcı var')
     }
     const salt=await bcrypt.genSalt(10)
 
@@ -47,15 +47,15 @@ kullaniciSema.statics.signup=async function(email,parola){
 
 kullaniciSema.statics.login=async function(email,parola){
     if(!email || !parola){
-        throw new Error('Lütfen email ve parola giriniz')
+        throw Error('Lütfen email ve parola giriniz')
     }
     const kullanici=await this.findOne({email})
     if(!kullanici){
-        throw new Error('Bu email ile kayıtlı kullanıcı yok')
+        throw Error('Bu email ile kayıtlı kullanıcı yok')
     }
-    const kontrolKullanici=await bcrypt.compare(parola,kullanici.parola)
-    if(!parolaKontrol){
-        throw new Error('Parola yanlış')
+   const kontrol=await bcrypt.compare(parola,kullanici.parola)
+    if(!kontrol){
+        throw Error('Parola yanlış')
     }
     return kullanici
 }
