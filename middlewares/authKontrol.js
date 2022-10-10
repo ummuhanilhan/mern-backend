@@ -1,7 +1,7 @@
 
 
 const jwt = require('jsonwebtoken');
-const Kullanici=require('../models/kullanici');
+const Kullanici = require('../models/kullaniciModel');
 
 
 const authKontrol = async (req, res, next) => {
