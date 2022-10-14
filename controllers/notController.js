@@ -19,7 +19,8 @@ const notOlustur= async (req,res)=>{
         }
 
     try {
-        const not=await NotModel.create({baslik,aciklama});
+        const kullanici_id=req.kullanici._id
+        const not=await NotModel.create({baslik,aciklama,kullanici_id});
         res.status(200).json({not})
     } catch (error) {
         res.status(400).json({hata:error.message})

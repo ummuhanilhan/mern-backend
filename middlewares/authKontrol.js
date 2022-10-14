@@ -11,7 +11,7 @@ const authKontrol = async (req, res, next) => {
     } 
     const token=authorization.split('')[1];
     try {
-        const {_id}=jwt.verify(token,process.env.JWT_SECRET)
+        const {_id}=jwt.verify(token,process.env.JWT_SECRET_KEY)
         
         req.kullanici=await Kullanici.findOne({_id}).select('_id')
         next()

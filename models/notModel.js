@@ -12,8 +12,12 @@ const notSema=Sema({
 
     aciklama:{
         type: String,
+    },
+    kullanici_id:{
+        type: String,
+        required: true
     }
-}, {
+},{
     timestamps:true
 })
 
