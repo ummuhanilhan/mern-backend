@@ -28,7 +28,8 @@ const notOlustur= async (req,res)=>{
 }
 
 const notlarGetir=async (req,res)=>{
-    const notlar= await NotModel.find().sort({createdAt:-1});
+    const kullanici_id=req.kullanici._id
+    const notlar= await NotModel.find({kullanici_id}).sort({createdAt:-1});
         res.status(200).json(notlar)
 }
 
